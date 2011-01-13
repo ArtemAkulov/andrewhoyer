@@ -42,19 +42,35 @@ var System = new Class({
     },
     
     update: function(){
+        var particles = this.particles,
+            wells = this.wells;
+        
         
         particles.each(function(particle){
+            var acceleration = new Vector(),
+                position = partical.current;
             
             wells.each(function(well){
-                
+                acceleration = acceleration.add(well.acceleration(position));
             });
             
+            particle.acceleration = acceleration;
+            particle.update();
         });
         
     },
     
     draw: function(){
+        var particles = this.particles,
+            wells = this.wells;
         
+        particles.each(function(particle){
+            particle.draw();
+        });
+        
+        wells.each(function(well){
+            well.draw();
+        });
     }
     
 });
